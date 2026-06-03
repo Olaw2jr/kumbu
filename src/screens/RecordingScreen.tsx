@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, Text, Pressable, StyleSheet} from 'react-native';
+import {View, Text, Pressable, Alert, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '@/app/Navigator';
 import {useTheme} from '@/theme/ThemeProvider';
 import {useAudioRecorder} from '@/hooks/useAudioRecorder';
+import {usePermissions} from '@/hooks/usePermissions';
 import {useNotes} from '@/state/NotesContext';
 import {formatTimerMs} from '@/utils/format';
 import {TopBar} from '@/components/primitives/TopBar';
@@ -22,6 +23,7 @@ export function RecordingScreen() {
   const {colors, fonts} = useTheme();
   const insets = useSafeAreaInsets();
   const {addNote} = useNotes();
+  const {ensureMicrophone, microphone} = usePermissions();
   const {
     phase,
     elapsedMs,
@@ -36,8 +38,22 @@ export function RecordingScreen() {
   const isRecording = phase === 'recording';
 
   React.useEffect(() => {
-    startRecording();
-  }, [startRecording]);
+    const init = async () => {
+      const allowed = await ensureMicrophone();
+      if (allowed) {
+        startRecording();
+      } else {
+        Alert.alert(
+          'Microphone Access Required',
+          'kumbu needs microphone access to record voice notes. Please enable it in your device settings.',
+          [
+            {text: 'Go Back', onPress: () => navigation.goBack()},
+          ],
+        );
+      }
+    };
+    init();
+  }, [ensureMicrophone, startRecording, navigation]);
 
   const handleStop = async () => {
     const audioUri = await stopRecording();
