@@ -1,5 +1,3 @@
-import {Easing} from 'react-native-reanimated';
-
 export const duration = {
   fast: 180,
   normal: 320,
@@ -8,10 +6,13 @@ export const duration = {
   slowest: 1400,
 } as const;
 
-export const easing = {
-  default: Easing.bezier(0.22, 1, 0.36, 1),
-  in: Easing.bezier(0.64, 0, 0.78, 0),
-} as const;
+// Easing bezier control points — use with Reanimated's Easing.bezier()
+// at call sites rather than storing Easing objects here, to avoid
+// importing reanimated at module scope.
+export const easingPoints = {
+  default: [0.22, 1, 0.36, 1] as const,
+  in: [0.64, 0, 0.78, 0] as const,
+};
 
 export const touchTarget = 44;
 
