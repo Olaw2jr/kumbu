@@ -1,6 +1,6 @@
 {
   "name": "kumbuApp",
-  "version": "0.0.1",
+  "version": "2026.0.1-alpha",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
