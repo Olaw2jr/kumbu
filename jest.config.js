@@ -4,12 +4,12 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^react-native-tts$': '<rootDir>/test/mocks/react-native-tts',
-    '^react-native-audio-recorder-player$':
-      '<rootDir>/test/mocks/react-native-audio-recorder-player',
+    '^react-native-nitro-sound$':
+      '<rootDir>/test/mocks/react-native-nitro-sound',
     '^react-native-mmkv$': '<rootDir>/test/mocks/react-native-mmkv',
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(react-native|@react-native|react-native-tts|react-native-audio-recorder-player|react-native-reanimated|react-native-svg|react-native-mmkv|@react-navigation|react-native-screens|react-native-safe-area-context|react-native-haptic-feedback|react-native-fs|react-native-share)/)',
+    'node_modules/(?!(react-native|@react-native|react-native-tts|react-native-nitro-sound|react-native-reanimated|react-native-svg|react-native-mmkv|@react-navigation|react-native-screens|react-native-safe-area-context|react-native-haptic-feedback|react-native-fs|react-native-share)/)',
   ],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',

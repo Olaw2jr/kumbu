@@ -1,5 +1,5 @@
 import {useState, useRef, useCallback, useEffect} from 'react';
-import AudioRecorderPlayer from 'react-native-audio-recorder-player';
+import AudioRecorderPlayer from 'react-native-nitro-sound';
 
 export function useAudioPlayer(audioUri: string) {
   const playerRef = useRef(new AudioRecorderPlayer());

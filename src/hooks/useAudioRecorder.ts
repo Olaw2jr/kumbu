@@ -1,5 +1,5 @@
 import {useState, useRef, useCallback} from 'react';
-import AudioRecorderPlayer from 'react-native-audio-recorder-player';
+import AudioRecorderPlayer from 'react-native-nitro-sound';
 
 type RecordingPhase = 'idle' | 'recording' | 'paused';
 

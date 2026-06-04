@@ -27,7 +27,7 @@ declare module 'react-native-tts' {
   export default Tts;
 }
 
-declare module 'react-native-audio-recorder-player' {
+declare module 'react-native-nitro-sound' {
   interface RecordBackType {
     currentPosition: number;
     currentMetering?: number;
