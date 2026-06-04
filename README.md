@@ -31,6 +31,34 @@ kumbu is built around three ideas — **記 Capture**, **聴 Listen**, **残 Kee
 
 ---
 
+## Screenshots
+
+<p align="center">
+  <img src=".github/screens/onboarding.png" alt="Onboarding" width="180" />
+  &nbsp;&nbsp;
+  <img src=".github/screens/home.png" alt="Home" width="180" />
+  &nbsp;&nbsp;
+  <img src=".github/screens/recording.png" alt="Recording" width="180" />
+  &nbsp;&nbsp;
+  <img src=".github/screens/playback.png" alt="Playback" width="180" />
+</p>
+
+<p align="center">
+  <img src=".github/screens/transcript.png" alt="Transcript" width="180" />
+  &nbsp;&nbsp;
+  <img src=".github/screens/summary.png" alt="Summary" width="180" />
+  &nbsp;&nbsp;
+  <img src=".github/screens/home-night.png" alt="Home Night" width="180" />
+  &nbsp;&nbsp;
+  <img src=".github/screens/recording-night.png" alt="Recording Night" width="180" />
+</p>
+
+<p align="center">
+  <sub>Onboarding &nbsp;·&nbsp; Home &nbsp;·&nbsp; Recording &nbsp;·&nbsp; Playback &nbsp;·&nbsp; Transcript &nbsp;·&nbsp; Summary &nbsp;·&nbsp; Night mode</sub>
+</p>
+
+---
+
 ## Features
 
 ### Voice Recording
