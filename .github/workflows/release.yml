@@ -1,0 +1,61 @@
+name: Release APK
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: android
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+      working-directory: .
+
+    - name: Decode keystore
+      run: echo "${{ secrets.KUMBU_KEYSTORE_BASE64 }}" | base64 -d > app/kumbu-release-key.keystore
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build release APK
+      run: ./gradlew assembleRelease
+      env:
+        APP_NAME: Kumbu
+        KUMBU_UPLOAD_STORE_FILE: kumbu-release-key.keystore
+        KUMBU_UPLOAD_STORE_PASSWORD: ${{ secrets.KUMBU_UPLOAD_STORE_PASSWORD }}
+        KUMBU_UPLOAD_KEY_ALIAS: ${{ secrets.KUMBU_UPLOAD_KEY_ALIAS }}
+        KUMBU_UPLOAD_KEY_PASSWORD: ${{ secrets.KUMBU_UPLOAD_KEY_PASSWORD }}
+
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: kumbu-release-apk
+        path: android/app/build/outputs/apk/release/app-release.apk
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: android/app/build/outputs/apk/release/app-release.apk
+        generate_release_notes: true
