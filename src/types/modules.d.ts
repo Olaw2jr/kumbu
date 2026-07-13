@@ -57,17 +57,3 @@ declare module 'react-native-nitro-sound' {
     removePlayBackListener(): void;
   }
 }
-
-declare module 'react-native-mmkv' {
-  export class MMKV {
-    constructor(config?: {id?: string});
-    set(key: string, value: string | number | boolean): void;
-    getString(key: string): string | undefined;
-    getNumber(key: string): number | undefined;
-    getBoolean(key: string): boolean | undefined;
-    delete(key: string): void;
-    contains(key: string): boolean;
-    getAllKeys(): string[];
-    clearAll(): void;
-  }
-}

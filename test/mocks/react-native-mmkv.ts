@@ -1,6 +1,6 @@
 const store: Record<string, string> = {};
 
-export class MMKV {
+class MockMMKV {
   set = jest.fn((key: string, value: string) => {
     store[key] = String(value);
   });
@@ -20,3 +20,5 @@ export class MMKV {
     Object.keys(store).forEach(k => delete store[k]);
   });
 }
+
+export const createMMKV = jest.fn(() => new MockMMKV());
