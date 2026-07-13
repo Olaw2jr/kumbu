@@ -1,21 +1,24 @@
 import {useState, useRef, useCallback, useEffect} from 'react';
-import AudioRecorderPlayer from 'react-native-nitro-sound';
+import {createSound} from 'react-native-nitro-sound';
 
 export function useAudioPlayer(audioUri: string) {
-  const playerRef = useRef(new AudioRecorderPlayer());
+  const playerRef = useRef<ReturnType<typeof createSound> | null>(null);
+  if (playerRef.current === null) {
+    playerRef.current = createSound();
+  }
   const [isPlaying, setIsPlaying] = useState(false);
   const [positionMs, setPositionMs] = useState(0);
   const [durationMs, setDurationMs] = useState(0);
 
   useEffect(() => {
     return () => {
-      playerRef.current.stopPlayer();
-      playerRef.current.removePlayBackListener();
+      playerRef.current?.stopPlayer();
+      playerRef.current?.removePlayBackListener();
     };
   }, []);
 
   const play = useCallback(async () => {
-    const player = playerRef.current;
+    const player = playerRef.current!;
     await player.startPlayer(audioUri);
     player.addPlayBackListener(
       (data: {currentPosition: number; duration: number}) => {
@@ -30,12 +33,12 @@ export function useAudioPlayer(audioUri: string) {
   }, [audioUri]);
 
   const pause = useCallback(async () => {
-    await playerRef.current.pausePlayer();
+    await playerRef.current!.pausePlayer();
     setIsPlaying(false);
   }, []);
 
   const seekTo = useCallback(async (ms: number) => {
-    await playerRef.current.seekToPlayer(ms);
+    await playerRef.current!.seekToPlayer(ms);
     setPositionMs(ms);
   }, []);
 

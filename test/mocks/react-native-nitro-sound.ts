@@ -1,4 +1,4 @@
-export default class AudioRecorderPlayer {
+class MockSound {
   startRecorder = jest.fn().mockResolvedValue('/tmp/sound.m4a');
   stopRecorder = jest.fn().mockResolvedValue('/tmp/sound.m4a');
   pauseRecorder = jest.fn().mockResolvedValue(undefined);
@@ -33,3 +33,6 @@ export default class AudioRecorderPlayer {
     cb?.(data);
   };
 }
+
+export const createSound = jest.fn(() => new MockSound());
+export default createSound();

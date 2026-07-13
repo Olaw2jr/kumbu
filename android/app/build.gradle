@@ -77,14 +77,14 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.kumbuapp"
+    namespace "tz.co.oscar.kumbu"
     defaultConfig {
-        applicationId "com.kumbuapp"
+        applicationId "tz.co.oscar.kumbu"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "2026.0.1-alpha"
-        resValue "string", "app_name", System.getenv("APP_NAME") ?: "Kumbu"
+        versionCode 2
+        versionName "2026.0.2-alpha"
+        resValue "string", "app_name", System.getenv("APP_NAME") ?: "kumbu"
     }
     signingConfigs {
         debug {

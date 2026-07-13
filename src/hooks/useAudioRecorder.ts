@@ -1,17 +1,20 @@
 import {useState, useRef, useCallback} from 'react';
-import AudioRecorderPlayer from 'react-native-nitro-sound';
+import {createSound} from 'react-native-nitro-sound';
 
 type RecordingPhase = 'idle' | 'recording' | 'paused';
 
 export function useAudioRecorder() {
-  const recorderRef = useRef(new AudioRecorderPlayer());
+  const recorderRef = useRef<ReturnType<typeof createSound> | null>(null);
+  if (recorderRef.current === null) {
+    recorderRef.current = createSound();
+  }
   const [phase, setPhase] = useState<RecordingPhase>('idle');
   const [elapsedMs, setElapsedMs] = useState(0);
   const [metering, setMetering] = useState(0);
   const [flaggedMoments, setFlaggedMoments] = useState<number[]>([]);
 
   const startRecording = useCallback(async () => {
-    const recorder = recorderRef.current;
+    const recorder = recorderRef.current!;
     recorder.setSubscriptionDuration(0.1);
     await recorder.startRecorder();
     recorder.addRecordBackListener(
@@ -28,18 +31,18 @@ export function useAudioRecorder() {
   }, []);
 
   const pauseRecording = useCallback(async () => {
-    await recorderRef.current.pauseRecorder();
+    await recorderRef.current!.pauseRecorder();
     setPhase('paused');
   }, []);
 
   const resumeRecording = useCallback(async () => {
-    await recorderRef.current.resumeRecorder();
+    await recorderRef.current!.resumeRecorder();
     setPhase('recording');
   }, []);
 
   const stopRecording = useCallback(async () => {
-    const result = await recorderRef.current.stopRecorder();
-    recorderRef.current.removeRecordBackListener();
+    const result = await recorderRef.current!.stopRecorder();
+    recorderRef.current!.removeRecordBackListener();
     setPhase('idle');
     setElapsedMs(0);
     setMetering(0);

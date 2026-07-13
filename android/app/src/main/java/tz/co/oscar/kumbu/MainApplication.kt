@@ -1,4 +1,4 @@
-package com.kumbuapp
+package tz.co.oscar.kumbu
 
 import android.app.Application
 import com.facebook.react.PackageList
